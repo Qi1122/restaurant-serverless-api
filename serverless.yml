@@ -13,6 +13,7 @@ custom:
   # usage: ${self:custom.authorize_arn}, use this replace all hardcoded arn below
 
 functions:
+
   optionsHandle:
     handler: handlers/httpOptionsHandlers.handle
     events:
@@ -27,3 +28,43 @@ functions:
       - http:
           path: helloworld
           method: get
+  postSignUp:
+    handler: handlers/postSignUp.handle
+    events:
+      - cognitoUserPool:
+        pool: arn:aws:cognito-idp:us-east-1:570666313840:userpool/us-east-1_2eDOjYE5q
+        trigger: PostConfirmation
+
+  lex:
+    handler: handlers/lex.handle
+    events:
+      - http:
+          path: lex
+          method: post
+  lexBot:
+    handler: handlers/lexBot.handle
+    events:
+      - http:
+          path: lexBot
+          method: post
+
+  me:
+    handler: handlers/profile.getProfile
+    events:
+      - http:
+          path: me
+          method: post
+
+  preference:
+    handler: handlers/preference.handle
+    events:
+      - http:
+          path: preference
+          method: post
+
+  recommend:
+    handler: handlers/recommend.handle
+    events:
+      - http:
+         path: recommend
+         method: post
